@@ -142,10 +142,14 @@ function equalForKeys(a, b, keys) {
     // if (a[k] != b[k]) return false; // Not '===', values aren't necessarily normalized
     // 由于当前最新版本(0.2.15)并没有解决这个问题，尽管维护者说希望有更好的解决方式，但是现在只能先这么用了
     // 详情见 https://github.com/angular-ui/ui-router/pull/1726 (基于0.2.13的request)
-    if(typeof a[k] === 'object' && typeof b[k] === 'object' ) {
-      if (!equalForKeys(a[k], b[k])) {
-        return false;
-      }
+    // -------------------------------------------------------
+    // 最新更新：现有的使用该方法都是在比较$stateParams时，暂时时忽略object类型的参数比较
+    // -------------------------------------------------------
+    if(typeof a[k] === 'object' || typeof b[k] === 'object' ) {
+    // if(typeof a[k] === 'object' && typeof b[k] === 'object' ) {
+      // if (!equalForKeys(a[k], b[k])) {
+      //   return false;
+      // }
     } else if (a[k] != b[k]) {
       return false; // Not '===', values aren't necessarily normalized
     }
